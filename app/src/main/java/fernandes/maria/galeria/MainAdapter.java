@@ -27,7 +27,6 @@ public class MainAdapter extends RecyclerView.Adapter {
         LayoutInflater inflater =  LayoutInflater.from(mainActivity);
         View v = inflater.inflate(R.layout.list_item, parent, false);
         return new MyViewHolder(v);
-        return null;
     }
 
     @Override
