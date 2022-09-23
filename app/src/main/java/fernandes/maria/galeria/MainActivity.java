@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkForPermissions(List<String> permissions) {
         List<String> permissionsNotGranted = new ArrayList<>();
 
-         for(String permission : permissions) {
+        for(String permission : permissions) {
             if( !hasPermission(permission)) {
                 permissionsNotGranted.add(permission);
             }
