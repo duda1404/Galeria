@@ -40,6 +40,8 @@ public class PhotoActivity extends AppCompatActivity {
         photoPath = i.getStringExtra("photo_path");
 
         Bitmap bitmap = Utils.getBitmap(photoPath);
+
+        //Obtém o caminho da foto que foi envia via o Intent de criação, carrega a foto em um Bitmap e seta o Bitmap no ImageView
         ImageView imPhoto = findViewById(R.id.imPhoto);
         imPhoto.setImageBitmap(bitmap);
 

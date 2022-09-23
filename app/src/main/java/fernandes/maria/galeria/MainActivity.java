@@ -38,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
     static int RESULT_REQUEST_PERMISSION = 2;
 
-
+    //Método aceita como entrada lista de permissões. Cada permissão é verificada. Caso o usuário não tenha ainda confirmado uma permissão,
+    // esta é posta em uma lista de permissões não confirmadas ainda. A seguir, as permissões não concedidas são requisitadas ao usuário
+    // através da chamada do método checkSelfPermission. É este método que exibe o dialogo ao usuário pedindo que ele confirme a permissão de uso do recurso
     private void checkForPermissions(List<String> permissions) {
         List<String> permissionsNotGranted = new ArrayList<>();
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Verifica se uma determinada permissão já foi concedida ou não
     private boolean hasPermission(String permission) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return ActivityCompat.checkSelfPermission(MainActivity.this, permission) == PackageManager.PERMISSION_GRANTED;
@@ -62,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    //Caso ainda tenha alguma permissão que não foi concedida e ela é necessária para o funcionamento correto da app,
+    // então é exibida uma mensagem ao usuário informando que a permissão é realmente necessária
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -95,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
     String currentPhotoPath;
 
+    //É criado um arquivo vazio dentro da pasta Pictures. Caso o arquivo não possa ser criado, é exibida uma mensagem para o usuário e o método retorna.
+
     private void dispatchTakePictureIntent() {
         File f = null;
         try {
@@ -114,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Cria arquivo que guardará a imagem
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp;
@@ -122,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
         return f;
     }
 
+
+    //Caso a foto tenha sido tirada, o local dela é adicionado na lista de fotos e o MainAdapter é avisado de que uma nova foto foi inserida na lista
+    //Caso a foto não tenha sido tirada, o arquivo criado para conter a foto é excluído
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -197,6 +208,9 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    //Recebe como parâmetro qual foto deverá ser aberto por PhotoActivity, então é chamado dentro do método onBindViewHolder
+    //(MainAdapter) quando o usuário clica em uma foto. O caminho para a foto é passado para PhotoActivity via Intent
 
     public void startPhotoActivity(String photoPath) {
         Intent i = new Intent(MainActivity.this, PhotoActivity.class);
